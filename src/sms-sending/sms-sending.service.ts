@@ -23,6 +23,7 @@ export class SmsSendingService {
       // Handle any errors that occur during SMS sending
       console.error('Error sending SMS:', error.message);
       throw new Error('Failed to send SMS');
+      
     }
   }
 }
