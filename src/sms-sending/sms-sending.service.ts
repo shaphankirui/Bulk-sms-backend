@@ -7,8 +7,8 @@ export class SmsSendingService {
   private readonly twilioClient: twilio.Twilio;
 
   constructor() {
-    // Initialize Twilio client with your Twilio credentials
-    this.twilioClient = twilio(env. TWILIO_ACCOUNT_SID, env.TWILIO_AUTH_TOKEN);
+    // Initialize Twilio client with your Twilio credentials from environment variables
+    this.twilioClient = twilio(env.TWILIO_ACCOUNT_SID, env.TWILIO_AUTH_TOKEN);
   }
 
   async sendSMS(phoneNumber: string, message: string) {
@@ -16,7 +16,7 @@ export class SmsSendingService {
       // Use the Twilio client to send the SMS
       await this.twilioClient.messages.create({
         to: phoneNumber,
-        from: '+12513091483',
+        from: env.TWILIO_PHONE_NUMBER,
         body: message,
       });
     } catch (error) {
