@@ -7,6 +7,7 @@ import { NewsModule } from './news/news.module';
 import { TendersModule } from './tenders/tenders.module';
 import { CareersModule } from './careers/careers.module';
 import { TeamModule } from './team/team.module';
+import { SmsSendingModule } from './sms-sending/sms-sending.module';
 
 
 
@@ -23,6 +24,7 @@ import { TeamModule } from './team/team.module';
     TendersModule,
     CareersModule,
     TeamModule,
+    SmsSendingModule,
      
     ],
   controllers: [],
