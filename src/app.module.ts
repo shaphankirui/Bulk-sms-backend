@@ -8,6 +8,7 @@ import { TendersModule } from './tenders/tenders.module';
 import { CareersModule } from './careers/careers.module';
 import { TeamModule } from './team/team.module';
 import { SmsSendingModule } from './sms-sending/sms-sending.module';
+import { OrginizationsModule } from './orginizations/orginizations.module';
 
 
 
@@ -25,6 +26,7 @@ import { SmsSendingModule } from './sms-sending/sms-sending.module';
     CareersModule,
     TeamModule,
     SmsSendingModule,
+    OrginizationsModule,
      
     ],
   controllers: [],

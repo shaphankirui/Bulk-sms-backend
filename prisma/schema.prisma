@@ -7,7 +7,7 @@ generator client {
 
 datasource db {
   // provider = "postgresql"
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
@@ -16,90 +16,120 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  email     String  @unique
-  password  String
-  firstName String
-  lastName  String?
-  Blog      Blog[]
-  News      News[]
-  Tenders      Tenders[]
-  Careers      Careers[]
+  email            String             @unique
+  password         String
+  firstName        String
+  lastName         String?
+  Blog             Blog[]
+  News             News[]
+  Tenders          Tenders[]
+  Careers          Careers[]
+  OrganizationUser OrganizationUser[]
 
   @@map("users")
 }
 
 model Blog {
-  id        Int      @id @default(autoincrement())
-  title     String
-  body      String
+  id         Int      @id @default(autoincrement())
+  title      String
+  body       String
   pictureUrl String?
   // postedBy String?
-  slug String?
-  createdAt DateTime @default(now())
-  userId    Int
-  user      User     @relation(fields: [userId], references: [id])
+  slug       String?
+  createdAt  DateTime @default(now())
+  userId     Int
+  user       User     @relation(fields: [userId], references: [id])
 
   @@map("blogs")
 }
 
 model News {
-   id        Int      @id @default(autoincrement())
-  title     String
-  body      String
+  id         Int      @id @default(autoincrement())
+  title      String
+  body       String
   pictureUrl String?
-  slug String?
-  createdAt DateTime @default(now())
-  userId    Int
-  user      User     @relation(fields: [userId], references: [id])
+  slug       String?
+  createdAt  DateTime @default(now())
+  userId     Int
+  user       User     @relation(fields: [userId], references: [id])
+
   @@map("news")
 }
 
 model Team {
-  id          Int      @id @default(autoincrement())
-  fullName        String
-  position        String
-  email String
-  phone String
-  is_active Boolean
-  pictureUrl  String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
+  id         Int      @id @default(autoincrement())
+  fullName   String
+  position   String
+  email      String
+  phone      String
+  is_active  Boolean
+  pictureUrl String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
   @@map("team")
 }
-model Tenders {
-  id          Int      @id @default(autoincrement())
-  title        String
-  slug String?
-  description String
-  aplicationDateLine String
-  is_open Boolean
-  fileUrl  String?
-  pictureUrl  String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  userId    Int
-  user      User     @relation(fields: [userId], references: [id])
 
+model Tenders {
+  id                 Int      @id @default(autoincrement())
+  title              String
+  slug               String?
+  description        String
+  aplicationDateLine String
+  is_open            Boolean
+  fileUrl            String?
+  pictureUrl         String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+  userId             Int
+  user               User     @relation(fields: [userId], references: [id])
 
   @@map("tenders")
 }
-model Careers {
-  id          Int      @id @default(autoincrement())
-  title        String
-  slug String?
-  description String
-  requirements String
-  aplicationDateLine String
-  is_open Boolean
-  fileUrl  String?
-  pictureUrl  String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  userId    Int
-  user      User     @relation(fields: [userId], references: [id])
 
+model Careers {
+  id                 Int      @id @default(autoincrement())
+  title              String
+  slug               String?
+  description        String
+  requirements       String
+  aplicationDateLine String
+  is_open            Boolean
+  fileUrl            String?
+  pictureUrl         String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+  userId             Int
+  user               User     @relation(fields: [userId], references: [id])
 
   @@map("careers")
+}
+
+model Orginization {
+  id               Int                @id @default(autoincrement())
+  name             String
+  clientId         String
+  apiKey           String
+  Balnce           Int
+  active           Boolean            @default(true)
+  fileUrl          String?
+  pictureUrl       String?
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  OrganizationUser OrganizationUser[]
+
+  @@map("orginization")
+}
+
+// Define a new model to represent the many-to-many relationship between organizations and users
+
+model OrganizationUser {
+  organizationId Int
+  userId         Int
+
+  organization Orginization @relation(fields: [organizationId], references: [id])
+  user         User         @relation(fields: [userId], references: [id])
+
+  @@id([organizationId, userId])
+  @@map("organization_users")
 }
