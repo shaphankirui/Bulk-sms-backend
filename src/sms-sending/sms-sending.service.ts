@@ -7,7 +7,6 @@ export class SmsSendingService {
   private readonly twilioClient: twilio.Twilio;
 
   constructor() {
-    // Initialize Twilio client with your Twilio credentials from environment variables
     this.twilioClient = twilio(env.TWILIO_ACCOUNT_SID, env.TWILIO_AUTH_TOKEN);
   }
 
@@ -23,7 +22,7 @@ export class SmsSendingService {
       // Handle any errors that occur during SMS sending
       console.error('Error sending SMS:', error.message);
       throw new Error('Failed to send SMS');
-      
+
     }
   }
 }
